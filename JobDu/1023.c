@@ -1,57 +1,63 @@
-// http://ac.jobdu.com/problem.php?pid=1032
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+// freopen("sample.txt", "r", stdin);
+
+typedef struct
+{
+	char no[10];
+	char name[20];
+	int score;
+}Student;
+Student stus[100500];
+
+int cmp1(const void *a, const void *b)
+{
+	Student *A = (Student *)a;
+	Student *B = (Student *)b;
+	return strcmp(A->no, B->no);
+}
+
+int cmp2(const void *a, const void *b)
+{
+	Student *A = (Student *)a;
+	Student *B = (Student *)b;
+	if(!strcmp(A->name, B->name))
+		return strcmp(A->no, B->no);
+	else
+		return strcmp(A->name, B->name);
+}
+
+int cmp3(const void *a, const void *b)
+{
+	Student *A = (Student *)a;
+	Student *B = (Student *)b;
+	if(A->score == B->score)
+		return strcmp(A->no, B->no);
+	else
+		return A->score - B->score;
+}
 
 int main()
 {
-	int iz, io, ij, i;
-	char input[100];
-	while(scanf("%s",&input))
+	int N, C, i, j;
+	j = 1;
+	while(scanf("%d%d", &N, &C) != EOF)
 	{
-		iz = io = ij = 0;
-		if(strlen(input) == 1 && input[0] == 'E')
+		if(N == 0 && C == 0)
 			return 0;
-		
-		for(i = 0;i < strlen(input); i++)
-		{
-			if(input[i] == 'Z')
-				iz++;
-			else if(input[i] == 'O')
-				io++;
-			else if(input[i] == 'J')
-				ij++;
-		}
-		
-		i = 0;
-		while(iz != 0 || io != 0 || ij != 0)
-		{
-			if(i == 0 && iz > 0)
-			{
-				iz--;
-				printf("Z");
-				i++;
-			}
-			else
-				i++;
-
-			if(i == 1 && io > 0)
-			{
-				io--;
-				printf("O");
-				i++;
-			}
-			else
-				i++;
-
-			if(i == 2 && ij > 0)
-			{
-				ij--;
-				printf("J");
-				i = 0;
-			}
-			else
-				i = 0;
-		}
-		printf("\n");
+		for(i = 0;i < N;i++)
+			scanf("%s%s%d", &stus[i].no, &stus[i].name, &stus[i].score);
+		if(C == 1)
+			qsort(stus, N, sizeof(Student), cmp1);
+		else if(C == 2)
+			qsort(stus, N, sizeof(Student), cmp2);
+		else
+			qsort(stus, N, sizeof(Student), cmp3);
+		printf("Case %d:\n",j);
+		for(i = 0;i < N;i++)
+			printf("%s %s %d\n", stus[i].no, stus[i].name, stus[i].score);
+		j++;
 	}
+	return 0;
 }
