@@ -19,6 +19,7 @@ string intToRoman(int n) {
 }
 
 int main() {
-	cout<<intToRoman(3999);
+	for(int i = 0; i <= 3999; ++i)
+		cout<<i<<" "<<intToRoman(i)<<endl;
 	return 0;
 }

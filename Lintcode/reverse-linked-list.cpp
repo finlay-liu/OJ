@@ -46,6 +46,5 @@ int main() {
 	node->next->next = new ListNode(3);
 	node = reverse(node);
 	PintList(node);
-	PintList(node);
 	return 0;
 }
