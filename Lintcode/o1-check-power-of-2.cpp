@@ -1,10 +1,6 @@
-class Solution {
-public:
-    /*
-     * @param n: An integer
-     * @return: True or false
-     */
-    bool checkPowerOf2(int n) {
-        return n > 0 && (n & (n - 1)) == 0;
-    }
-};
+bool checkPowerOf2(int n) {
+	if( (n & (n - 1)) || n <= 0)
+		return false;
+	else
+		return true;
+}
